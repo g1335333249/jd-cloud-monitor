@@ -1,0 +1,55 @@
+server:
+  port: 3000
+spring:
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  datasource:
+    druid:
+      db-type: mysql
+      url: jdbc:mysql://localhost/jd_cloud_wifi?useUnicode=true&autoReconnect=true&failOverReadOnly=false&zeroDateTimeBehavior=convertToNull&serverTimezone=GMT%2b8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      # 配置初始化大小、最小、最大
+      initial-size: 50
+      min-idle: 50
+      max-active: 200
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,slf4j
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      web-stat-filter:
+        enabled: true
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: 123456
+        url-pattern: /druid/*
+        reset-enable: false
+        allow:
+      max-wait: 60000 #配置获取连接等待超时的时间
+      time-between-eviction-runs-millis: 2000 #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      min-evictable-idle-time-millis: 600000 #配置一个连接在池中最小生存的时间，单位是毫秒
+      max-evictable-idle-time-millis: 900000 #配置一个连接在池中最大生存的时间，单位是毫秒
+      # validation-query: select 1
+      test-while-idle: false
+      test-on-borrow: false
+      test-on-return: false
+      keep-alive: true
+      phy-max-use-count: 10000
+    type: com.alibaba.druid.pool.DruidDataSource
+aliyun:
+  endpoint: alidns.cn-beijing.aliyuncs.com
+  accessKeyId: A
+  accessKeySecret: A
+  dns:
+    domain: 1.com
+    domainPre: www
+jdcloudwifi:
+  retryCount: 3
+jdcloudwifiapp:
+  accessKey: b8f9c108c190a39760e1b4e373208af5cd75feb4
+  macKey: 706390cef611241d57573ca601eb3c061e174948
+  tgt: tgt
+  pin: pin
